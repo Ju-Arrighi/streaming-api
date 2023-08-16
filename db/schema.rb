@@ -10,20 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_16_164718) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_16_180552) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "episodes", force: :cascade do |t|
-    t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title", null: false
+    t.text "plot", null: false
   end
 
   create_table "libraries", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.bigint "purchase_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["purchase_id"], name: "index_libraries_on_purchase_id"
     t.index ["user_id"], name: "index_libraries_on_user_id"
   end
 
@@ -41,8 +44,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_164718) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "library_id", null: false
-    t.index ["library_id"], name: "index_purchases_on_library_id"
   end
 
   create_table "seasons", force: :cascade do |t|
@@ -61,7 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_164718) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "libraries", "purchases"
   add_foreign_key "libraries", "users"
-  add_foreign_key "purchases", "libraries"
   add_foreign_key "seasons", "episodes", column: "episodes_id"
 end
