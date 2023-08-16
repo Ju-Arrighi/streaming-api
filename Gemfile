@@ -39,6 +39,9 @@ gem "bootsnap", require: false
 # Rspec for testing
 gem "rspec"
 
+# Faker helps you generate realistic test data, and populate your database with more than a couple of records while you're doing development.
+gem 'faker'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
