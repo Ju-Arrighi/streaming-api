@@ -13,22 +13,36 @@ namespace :dev do
     puts 'Movies created successfuly'
     ##################################
     puts 'Creating Seasons'
-    def episode_create
-      Random.rand(10).times do |i|
-        Episode.create!(
+    100.times do |i|
+      Season.create!(
+        title: Faker::TvShows::Simpsons.quote,
+        plot: Faker::TvShows::Simpsons.character
+        # episodes_id: episodes_ids
+      )
+    end
+    puts 'Seasons created successfuly'
+    def create_episodes
+      episodes = []
+      Random.rand(10).times do |episode|
+        episode = Episode.create!(
           title: Faker::TvShows::BreakingBad.character,
           plot: Faker::TvShows::BreakingBad.episode
         )
+        # season.episode << episode
+        # season.save
+        episodes << episode
       end
-
+      episodes
     end
-    Season.create!(
-      title: Faker::TvShows::Simpsons.quote,
-      plot: Faker::TvShows::Simpsons.character,
-      episode: episode_create
-    )
+    def episodes_ids
+      ids = []
+      create_episodes.each do |episode|
+        ids << episode.id
+      end
+      ids
+      # binding.break
+    end
   end
-  puts 'Seasons created successfuly'
   ##################################
   # puts 'Creating Episodes'
   # Season.all.each do |season|
