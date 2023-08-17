@@ -3,56 +3,67 @@ require 'faker'
 namespace :dev do
   desc 'Configure development setup'
   task setup: :environment do
-    puts 'Creating Movies'
+
+    puts 'Creating Movies...'
     100.times do |i|
       Movie.create!(
         title: Faker::Movie.title,
         plot: Faker::Movie.quote
       )
     end
-    puts 'Movies created successfuly'
+    puts 'Movies created successfuly.'
+
     ##################################
-    puts 'Creating Seasons'
+
+    puts 'Creating Seasons...'
     100.times do |i|
       Season.create!(
         title: Faker::TvShows::Simpsons.quote,
-        plot: Faker::TvShows::Simpsons.character
-        # episodes_id: episodes_ids
+        plot: Faker::TvShows::Simpsons.character,
+        number: rand(1..5)
       )
     end
-    puts 'Seasons created successfuly'
-    def create_episodes
-      episodes = []
-      Random.rand(10).times do |episode|
-        episode = Episode.create!(
+    puts 'Seasons created successfuly.'
+
+    ##################################
+
+    puts 'Creating Episodes...'
+    Season.all.each do |season|
+      number_of_seasons = season.number
+      number_of_episodes = number_of_seasons * rand(1..10)
+      x = 0
+      number_of_episodes.times do |i|
+        episode = season.episodes.create!(
           title: Faker::TvShows::BreakingBad.character,
-          plot: Faker::TvShows::BreakingBad.episode
-        )
-        # season.episode << episode
-        # season.save
-        episodes << episode
+          plot: Faker::TvShows::BreakingBad.episode,
+          season_ref: x =+ 1
+         )
+        season.episodes << episode
+        season.save!
       end
-      episodes
     end
-    def episodes_ids
-      ids = []
-      create_episodes.each do |episode|
-        ids << episode.id
-      end
-      ids
-      # binding.break
-    end
+    puts 'Episodes created successfully.'
   end
-  ##################################
-  # puts 'Creating Episodes'
-  # Season.all.each do |season|
-  #   number_of_episodes = Random.rand(10)
-  #   number_of_episodes.times do |i|
-  #     Episode.create!(
-  #       title: Faker::TvShows::BreakingBad.character,
-  #       plot: Faker::TvShows::BreakingBad.episode
-  #     )
-  #   end
-  # end
-  # puts 'Episodes created successfuly'
 end
+
+# def create_episodes
+#   episodes = []
+#   Random.rand(10).times do |episode|
+#     episode = Episode.create!(
+#       title: Faker::TvShows::BreakingBad.character,
+#       plot: Faker::TvShows::BreakingBad.episode
+#     )
+#     # season.episode << episode
+#     # season.save
+#     episodes << episode
+#   end
+#   episodes
+# end
+# def episodes_ids
+#   ids = []
+#   create_episodes.each do |episode|
+#     ids << episode.id
+#   end
+#   ids
+#   # binding.break
+# end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_17_122931) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_17_125933) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_17_122931) do
     t.string "title", null: false
     t.text "plot", null: false
     t.bigint "season_id"
+    t.integer "season_ref"
     t.index ["season_id"], name: "index_episodes_on_season_id"
   end
 
