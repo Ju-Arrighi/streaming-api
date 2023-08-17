@@ -36,7 +36,7 @@ namespace :dev do
         episode = season.episodes.create!(
           title: Faker::TvShows::BreakingBad.character,
           plot: Faker::TvShows::BreakingBad.episode,
-          season_ref: x =+ 1
+          season_ref: x += 1
          )
         season.episodes << episode
         season.save!
