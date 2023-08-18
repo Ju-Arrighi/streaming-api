@@ -43,27 +43,57 @@ namespace :dev do
       end
     end
     puts 'Episodes created successfully.'
+
+    ###################################
+    puts 'Creating Users...'
+    100.times do |i|
+      User.create!(
+        email: Faker::Internet.email
+      )
+    end
+    puts 'Users created successfuly.'
+
+    ################################## User e Library e depois purchase!!!!
+
+    puts 'Creating Library...'
+    User.all.each do |user|
+      Library.create!(
+        user_id: user.id
+      )
+    end
+    puts 'Library created successfuly.'
+
+    #####################################
+
+    # rand(5).times do |purchase|
+    #     phone = contact.phones.create!(number: Faker::PhoneNumber.cell_phone)
+    # puts 'Creating Purchase...'
+    #   100.times do |i|
+    #     Purchase.create!(
+    #       product_type: rand(2),
+    #       quality: rand(2),
+    #       price: rand(2),
+    #       status: rand(3),
+    #       product_id: rand(1..100)
+    #     )
+    #   end
+    #   puts 'Purchase created successfuly.'
+
+    #   #################################
+    # Season.all.each do |season|
+    #   number_of_seasons = season.number
+    #   number_of_episodes = number_of_seasons * rand(1..10)
+    #   x = 0
+    #   number_of_episodes.times do |i|
+    #     episode = season.episodes.create!(
+    #       title: Faker::TvShows::BreakingBad.character,
+    #       plot: Faker::TvShows::BreakingBad.episode,
+    #       season_ref: x += 1
+    #      )
+    #     season.episodes << episode
+    #     season.save!
+    #   end
+    # end
+
   end
 end
-
-# def create_episodes
-#   episodes = []
-#   Random.rand(10).times do |episode|
-#     episode = Episode.create!(
-#       title: Faker::TvShows::BreakingBad.character,
-#       plot: Faker::TvShows::BreakingBad.episode
-#     )
-#     # season.episode << episode
-#     # season.save
-#     episodes << episode
-#   end
-#   episodes
-# end
-# def episodes_ids
-#   ids = []
-#   create_episodes.each do |episode|
-#     ids << episode.id
-#   end
-#   ids
-#   # binding.break
-# end
