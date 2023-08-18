@@ -14,8 +14,4 @@ class Purchase < ApplicationRecord
     basic: 0,
     cinema: 1
   }
-  enum quality: {
-    hd: 0,
-    sd: 1
-  }
 end

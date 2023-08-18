@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_18_153823) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_18_172445) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_18_153823) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "product_id"
+    t.bigint "library_id"
+    t.index ["library_id"], name: "index_purchases_on_library_id"
   end
 
   create_table "seasons", force: :cascade do |t|
@@ -67,4 +69,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_18_153823) do
   add_foreign_key "episodes", "seasons"
   add_foreign_key "libraries", "purchases"
   add_foreign_key "libraries", "users"
+  add_foreign_key "purchases", "libraries"
 end
