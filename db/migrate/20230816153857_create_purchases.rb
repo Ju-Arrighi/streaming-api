@@ -4,7 +4,7 @@ class CreatePurchases < ActiveRecord::Migration[7.0]
       t.integer :product_type
       t.string :quality
       t.float :price
-      t.integer :status
+      t.integer :status, default: 0
 
       t.timestamps
     end

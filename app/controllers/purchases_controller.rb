@@ -1,4 +1,6 @@
 class PurchasesController < ApplicationController
+  # has_scope :by_product_type, only: :index
+
   def index
     @purchases = Purchase.all
 

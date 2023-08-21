@@ -64,7 +64,6 @@ namespace :dev do
     puts 'Library created successfuly.'
 
     #####################################
-
     puts 'Creating Purchase...'
     Library.all.each do |library|
       qualities = %w[HD SD]

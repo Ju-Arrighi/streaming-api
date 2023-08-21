@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   resources :movies, only: [:index]
   resources :seasons, only: [:index]
   resources :users, only: [:index]
-  resources :libraries, only: [:index, :show]
   resources :purchases, only: [:index, :create]
+  resources :libraries, only: [:index, :show] do
+    resource :purchases, only: [:index]
+  end
+
   # Defines the root path route ("/")
   # root "articles#index"
 end

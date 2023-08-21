@@ -1,10 +1,11 @@
 class Purchase < ApplicationRecord
   belongs_to :library, optional: true
+  validates :status, inclusion: { in: %w(active pending) }, presence: true
+  # validate :association_must_be_allowed, if: :purchase_active
 
   enum status: {
     pending: 0,
-    active: 1,
-    archived: 2
+    active: 1
   }
   enum product_type: {
     movie: 0,
