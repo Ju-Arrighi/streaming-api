@@ -7,17 +7,16 @@ class LibrariesController < ApplicationController
   end
 
   def show
-    render json: @library, include: [:user_id]
-    # binding.break
+    render json: @library
   end
 
   private
 
   def library_params
-    params.require(:library).permit(:user_id)
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params)
   end
 
-  def set_contact
+  def set_library
     @library = Library.find(params[:id])
   end
 end
