@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :libraries, only: [:index, :show] do
     resource :purchases, only: [:index]
   end
-
+  resources :movie_season, only: [:index]
   # Defines the root path route ("/")
   # root "articles#index"
 end
