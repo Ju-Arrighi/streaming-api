@@ -17,7 +17,7 @@ class PurchasesController < ApplicationController
 
   def update
     purchase = Purchase.find(purchase_params[:id])
-    binding.break
+
     if purchase.update(purchase_params)
       render json: @library.purchases
     else
