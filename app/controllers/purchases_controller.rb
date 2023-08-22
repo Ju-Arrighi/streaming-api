@@ -15,7 +15,6 @@ class PurchasesController < ApplicationController
   end
 
   def create
-    # binding.pry
     @library.purchases << Purchase.new(purchase_params)
     if @library.save
       render json: @library.purchases, status: :created
@@ -50,15 +49,14 @@ class PurchasesController < ApplicationController
 
   def set_libraries
     @library = Library.find(params[:library_id])
-    # @library.purchases
   end
 
   def purchase_params
     ActiveModelSerializers::Deserialization.jsonapi_parse(params)
   end
 
-
-  def verify_expiration(library)
+  # Method to verify if content is already in the library
+  def verify_purchase(library)
     library.purchases.each do |purchase|
       active_purchases << purchase if purchase[:status] == 0
     end
