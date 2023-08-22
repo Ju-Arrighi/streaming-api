@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
 
   resources :libraries, only: [:index, :show] do
-    resource :purchases, only: [:index, :show, :update]
+    resource :purchases, only: [:index, :show, :create, :update]
   end
 
   resources :movie_season, only: [:index]

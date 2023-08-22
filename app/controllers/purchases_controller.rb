@@ -1,6 +1,6 @@
 class PurchasesController < ApplicationController
   # has_scope :by_status, only: :show
-  before_action :set_purchases, only: %i[ show update destroy]
+  before_action :set_libraries, only: %i[ show create update destroy ]
 
   def index
     @purchases = Purchase.all
@@ -11,8 +11,17 @@ class PurchasesController < ApplicationController
   def show
     library_purchases = @library.purchases
     expire(library_purchases)
-    # verify_expiration()
     render json: @library.purchases.activated
+  end
+
+  def create
+    # binding.pry
+    @library.purchases << Purchase.new(purchase_params)
+    if @library.save
+      render json: @library.purchases, status: :created
+    else
+      render json: @library.purchases.errors
+    end
   end
 
   def update
@@ -39,10 +48,9 @@ class PurchasesController < ApplicationController
 
   private
 
-  def set_purchases
+  def set_libraries
     @library = Library.find(params[:library_id])
-    @library.purchases
-
+    # @library.purchases
   end
 
   def purchase_params
@@ -53,7 +61,6 @@ class PurchasesController < ApplicationController
   def verify_expiration(library)
     library.purchases.each do |purchase|
       active_purchases << purchase if purchase[:status] == 0
-
     end
   end
 end

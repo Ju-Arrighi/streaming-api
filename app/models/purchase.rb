@@ -1,8 +1,9 @@
 class Purchase < ApplicationRecord
   belongs_to :library, optional: true
   validates :status, inclusion: { in: %w(active pending) }, presence: true
-  # validate :association_must_be_allowed, if: :purchase_active
+
   scope :activated, -> { where(status: 1) }
+
   enum status: {
     pending: 0,
     active: 1
