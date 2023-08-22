@@ -1,6 +1,6 @@
 class PurchasesController < ApplicationController
   # has_scope :by_product_type, only: :index
-  before_action :set_library, only: %i[ show update destroy]
+  before_action :set_purchases, only: %i[ show update destroy]
 
   def index
     @purchases = Purchase.all
@@ -15,15 +15,14 @@ class PurchasesController < ApplicationController
     render json: @library.purchases
   end
 
-  private
-
-  def set_library
-    @library = Library.find(params[:library_id])
-
-  end
-
-  def purchase_params
-    ActiveModelSerializers::Deserialization.jsonapi_parse(params)
+  def update
+    purchase = Purchase.find(purchase_params[:id])
+    binding.break
+    if purchase.update(purchase_params)
+      render json: @library.purchases
+    else
+      render json: @library.purchases.errors
+    end
   end
 
   def expire(library_purchase)
@@ -34,14 +33,28 @@ class PurchasesController < ApplicationController
       if expiration >= 172_800
         purchase[:status] = 0
         purchase.save
+        # binding.break
       end
-      binding.break
     end
   end
+
+  private
+
+  def set_purchases
+    @library = Library.find(params[:library_id])
+    @library.purchases
+
+  end
+
+  def purchase_params
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params)
+  end
+
 
   def verify_expiration(library)
     library.purchases.each do |purchase|
       active_purchases << purchase if purchase[:status] == 0
+
     end
   end
 end
