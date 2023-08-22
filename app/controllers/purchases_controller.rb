@@ -1,5 +1,5 @@
 class PurchasesController < ApplicationController
-  # has_scope :by_product_type, only: :index
+  # has_scope :by_status, only: :show
   before_action :set_purchases, only: %i[ show update destroy]
 
   def index
@@ -12,12 +12,11 @@ class PurchasesController < ApplicationController
     library_purchases = @library.purchases
     expire(library_purchases)
     # verify_expiration()
-    render json: @library.purchases
+    render json: @library.purchases.activated
   end
 
   def update
     purchase = Purchase.find(purchase_params[:id])
-
     if purchase.update(purchase_params)
       render json: @library.purchases
     else
