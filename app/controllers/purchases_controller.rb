@@ -11,7 +11,9 @@ class PurchasesController < ApplicationController
   def show
     library_purchases = @library.purchases
     expire(library_purchases)
-    render json: @library.purchases.activated
+    if stale?(etag: library_purchases)
+      render json: @library.purchases.activated
+    end
   end
 
   def create
