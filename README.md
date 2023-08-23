@@ -4,7 +4,7 @@
 
 This is an API application challenge. Some highlights about the code:
 
-* There is no interface since the problem doesn't suggest to do one. But it could also be read by a framework as REACT. This could be a improvement as a future task.
+* There is no interface since the problem doesn't suggest to do one. But it could also be read by a frontend framework. This could be a improvement as a future task.
 
 * It's was done in Ruby on Rails, version 7.0.6, Ruby version 3.1.2.
 
@@ -24,7 +24,7 @@ INSTALLATION INSTRUCTIONS
 
 3 - I used Bundler to load TDD and debugger gems. Run bundle install. After it, you will have Rspec for TDD and Pry for the console.
 
-4 - Once you have the enviroment prepared run bin/rails db:create db:migrate. To populate your development database do bin/rails dev:setup.
+4 - Once you have the enviroment prepared run *bin/rails db:create db:migrate*. To populate your database do *bin/rails dev:setup*.
 
 5 - You can see the json data from your browser once you have your server o. As it is an API app, it good to have tools to verify the data. I use Postman and Curl. I suggest you to do the same.
 
