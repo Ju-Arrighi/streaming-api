@@ -3,6 +3,8 @@ class LibrariesController < ApplicationController
   def index
     @libraries = Library.all
 
+    # Cache-control
+    expires_in 30.seconds, public: true
     render json: @libraries
   end
 

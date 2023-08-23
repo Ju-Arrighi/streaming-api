@@ -16,6 +16,8 @@ class PurchasesController < ApplicationController
 
   def create
     # verify_purchase
+    library_purchases = @library.purchases
+    expire(library_purchases)
     @library.purchases << Purchase.new(purchase_params)
     if @library.save
       render json: @library.purchases, status: :created
