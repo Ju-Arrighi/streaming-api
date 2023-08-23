@@ -15,11 +15,12 @@ class PurchasesController < ApplicationController
   end
 
   def create
+    # verify_purchase
     @library.purchases << Purchase.new(purchase_params)
     if @library.save
       render json: @library.purchases, status: :created
     else
-      render json: @library.purchases.errors
+      render json: @library.errors, status: :unprocessable_entity
     end
   end
 
@@ -56,9 +57,10 @@ class PurchasesController < ApplicationController
   end
 
   # Method to verify if content is already in the library
-  def verify_purchase(library)
-    library.purchases.each do |purchase|
-      active_purchases << purchase if purchase[:status] == 0
+  def verify_purchase
+    @library_purchases = @library.purchases.activated
+    if @library_purchases.pluck(:product_id).include?(purchase_params[:product_id]) && @library_purchases.pluck(:product_type).include?(purchase_params[:product_type])
+      return raise ArgumentError, "Product is already on your library!", status: :unprocessable_entity
     end
   end
 end
