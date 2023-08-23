@@ -1,5 +1,6 @@
 class LibrariesController < ApplicationController
   before_action :set_library, only: %i[ show update destroy ]
+
   def index
     @libraries = Library.all
 
@@ -9,7 +10,7 @@ class LibrariesController < ApplicationController
   end
 
   def show
-    render json: @library
+    render json: @library,  include: [:product_type, :title, :plot, :number]
   end
 
   private
