@@ -10,7 +10,7 @@ class LibrariesController < ApplicationController
   end
 
   def show
-    render json: @library,  include: [:product_type, :title, :plot, :number]
+    render json: @library, include: [:product_type, :title, :plot, :number]
   end
 
   private
